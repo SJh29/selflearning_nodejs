@@ -13,7 +13,4 @@ module.exports = {
     await authServices.userSignup(data, res);
   },
   logoutUser: (req, res) => {},
-  registerPage: (req, res) => {
-    res.render("register");
-  },
 };

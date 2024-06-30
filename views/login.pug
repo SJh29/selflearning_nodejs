@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Register
+    title Login
     style.
       body {
         font-family: Arial, sans-serif;
@@ -47,46 +47,47 @@ html(lang="en")
       button:hover {
         background-color: #218838;
       }
+      #success {
+        display: none;
+      }
     script.
-      async function register() {
+      async function login() {
         const username = document.getElementById("username").value;
-        const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
 
-        if (password !== confirmPassword) {
-          alert("Passwords do not match");
-          return;
-        }
-
-        const response = await fetch("/auth/register", {
+        const response = await fetch("/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({username, email, password }),
+          body: JSON.stringify({username, password}),
         });
-
+        console.log("Login Started");
         const result = await response.json();
+        if (result) {
+            console.log("Login Success");
+            document.getElementById("success").style.display = "block";
+            document.cookie = `token=${result.token}; path=/`
+            console.log(document.cookie);
+        }
         // console.log(result);
       }
+      async function redirectBut() {
+        window.location.href = `http://localhost:3000/protected/`;
+      }
   body
-    h1 Register
-    form(onsubmit="event.preventDefault(); register();")
+    h1 Login 
+    div(id="success") Login Successful
+    form(onsubmit="event.preventDefault(); login();")
       label(for="username") Username:
       input(type="text", id="username", name="username", required)
-      br
-      br
-      label(for="email") Email:
-      input(type="email", id="email", name="email", required)
       br
       br
       label(for="password") Password:
       input(type="password", id="password", name="password", required)
       br
       br
-      label(for="confirmPassword") Confirm Password:
-      input(type="password", id="confirmPassword", name="confirmPassword", required)
+      button(type="submit") Login 
       br
       br
-      button(type="submit") Register
+    button(type="redirect" onclick="event.preventDefault(); redirectBut();") Go To Protected

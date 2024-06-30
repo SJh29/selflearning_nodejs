@@ -3,6 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const cookieParse = require("cookie-parser");
 require("dotenv").config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // parse json and encoded url
 app.use(express.json());
+app.use(cookieParse());
 app.use(express.urlencoded({ extended: true }));
 
 const authRoutes = require("./routes/auth.routes");
