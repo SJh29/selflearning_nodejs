@@ -47,5 +47,10 @@ html(lang="en")
       button:hover {
         background-color: #218838;
       }
+    script.
+      async function redirectBut() {
+        window.location.href = `http://localhost:3000/auth/login/`;
+      }
     body 
       h1 Success 
+      button(onclick="event.preventDefault(); redirectBut();") Return to Login
