@@ -69,7 +69,6 @@ button:hover {
   flex-direction: column;
   overflow: hidden;
   padding: 20px;
-  text-align: center;
 }
 
 .toast {

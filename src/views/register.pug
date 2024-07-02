@@ -6,7 +6,6 @@ html(lang="en")
     title Register
     link(rel='stylesheet', type='text/css', href='/register.css')      
     script(type="text/javascript" language="javascript" src="../scripts/register.js")
-      
   body
     h1 Register
     br
@@ -20,4 +19,5 @@ html(lang="en")
       label(for="confirmPassword") Confirm Password:
       input(type="password", id="confirmPassword", name="confirmPassword", required)
       button(type="submit") Register
-    button(onclick="event.preventDefault(); window.location.href = `http://localhost:3000/auth/login`; ") Login
+    button(onclick="event.preventDefault(); window.location.href = `http://localhost:3000/login`; ") Login
+    div(id="toast-box")

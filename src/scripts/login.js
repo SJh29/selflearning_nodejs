@@ -34,5 +34,6 @@ function showToast(msg) {
   toastbox.appendChild(toast);
   setTimeout(() => {
     toast.remove();
+    redirectBut();
   }, 6000);
 }

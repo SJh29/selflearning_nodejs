@@ -2,25 +2,32 @@ const userData = require("../models/userModel");
 
 const findData = async (data) => {
   try {
-    const { username, email } = data;
+    const { _id, username, email } = data;
     var found = {};
-    if (username && email) {
+    if ((_id, username && email)) {
       found = await userData
-        .findOne({
-          email: email,
-          username: username,
+        .find({
+          _id,
+          email,
+          username,
         })
         .exec();
     } else if (username) {
       found = await userData
-        .findOne({
-          username: username,
+        .find({
+          username,
         })
         .exec();
     } else if (email) {
       found = await userData
+        .find({
+          email,
+        })
+        .exec();
+    } else if (_id) {
+      found = await userData
         .findOne({
-          email: email,
+          _id,
         })
         .exec();
     } else found = null;
