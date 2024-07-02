@@ -2,7 +2,7 @@ async function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const response = await fetch("/auth/login", {
+  const response = await fetch("/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ function showToast(msg) {
   toast.classList.add("toast");
   toast.innerHTML = msg;
   toastbox.appendChild(toast);
-  /* setTimeout(() => {
+  setTimeout(() => {
     toast.remove();
-  }, 6000); */
+  }, 6000);
 }

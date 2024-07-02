@@ -7,11 +7,11 @@ const scriptRoute = require("./scripts.routes");
 
 //const appAllroutes = () => {
 router.get("/", (req, res) => {
-  res.redirect("/auth/login");
+  res.redirect("/register");
 });
 router.use("/scripts", scriptRoute);
 router.use("/crud", crudRoutes);
-router.use("/auth", authRoutes);
+router.use("/", authRoutes);
 router.use("/protected", protectedRoute);
 
 module.exports = router;

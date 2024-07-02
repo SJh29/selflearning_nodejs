@@ -19,7 +19,7 @@ app.use(express.static("./src/scripts"));
 // parse json and encoded url
 app.use(express.json());
 app.use(cookieParse());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 const router = require("./src/routes/index.routes");
 app.use("/", router);
