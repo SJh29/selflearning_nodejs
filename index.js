@@ -1,10 +1,9 @@
 // requirements
 // express
 const express = require("express");
-const morgan = require("morgan");
 const path = require("path");
 const cookieParse = require("cookie-parser");
-require("dotenv").config();
+require("dotenv").config({ path: "./src/.env" });
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,22 +11,21 @@ const port = process.env.PORT || 3000;
 // viewengine
 // Set Pug as the view engine
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "/src/views"));
 
+// set stylesheets & scripts for pages
+app.use(express.static(path.join(__dirname + "/src/stylesheets")));
+app.use(express.static("./src/scripts"));
 // parse json and encoded url
 app.use(express.json());
 app.use(cookieParse());
 app.use(express.urlencoded({ extended: true }));
 
-const authRoutes = require("./routes/auth.routes");
-const protectedRoute = require("./routes/protected.routes");
-const crudRoutes = require("./routes/crud.routes");
-const redirRoute = require("./routes/redir.routes");
-app.use("/crud", crudRoutes);
-app.use("/auth", authRoutes);
-app.use("/protected", protectedRoute);
-app.use("/", redirRoute);
-const connectDB = require("./connect");
+const router = require("./src/routes/index.routes");
+app.use("/", router);
+
+// database connect
+const connectDB = require("./src/connect");
 connectDB();
 
 app.listen(port, () => {
