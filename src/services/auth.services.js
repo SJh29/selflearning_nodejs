@@ -14,9 +14,11 @@ async function userSignup(data, res) {
     });
     await newUser.save();
     res.status(201).json({ message: msg.REG_PASS });
+    return;
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: msg.REG_FAIL });
+    res.status(500).json({ message: msg.REG_FAIL, error: error });
+    return;
   }
 }
 
@@ -40,5 +42,5 @@ async function userLogin(username, password, res) {
     return null;
   }
 }
-
+async function userLogOut() {}
 module.exports = { userLogin, userSignup };

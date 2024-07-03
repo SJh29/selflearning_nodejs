@@ -9,7 +9,7 @@ async function register() {
     return;
   }
 
-  const response = await fetch("/auth/register", {
+  const response = await fetch("/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,6 +17,17 @@ async function register() {
     body: JSON.stringify({ username, email, password }),
   });
 
-  await response.json();
-  console.log("Successful");
+  const result = await response.json();
+  showToast(result.message);
+}
+function showToast(msg) {
+  let toastbox = document.getElementById("toast-box");
+  let toast = document.createElement("div");
+
+  toast.classList.add("toast");
+  toast.innerHTML = msg;
+  toastbox.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+  }, 6000);
 }

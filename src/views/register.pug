@@ -10,6 +10,7 @@ html(lang="en")
     h1 Register
     br
     form(onsubmit="event.preventDefault(); register();")
+      
       label(for="username") Username:
       input(type="text", id="username", name="username", required)
       label(for="email") Email:
@@ -19,5 +20,8 @@ html(lang="en")
       label(for="confirmPassword") Confirm Password:
       input(type="password", id="confirmPassword", name="confirmPassword", required)
       button(type="submit") Register
+      br
+      br
+      div(id="toast-box")
     button(onclick="event.preventDefault(); window.location.href = `http://localhost:3000/login`; ") Login
-    div(id="toast-box")
+    

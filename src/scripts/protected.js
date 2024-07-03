@@ -20,6 +20,10 @@ async function loadData() {
   const data = await response.json();
   buildTable(data);
 }
-async function redirectBut() {
+async function logOut() {
+  const token = document.cookie.token;
+  const path = document.cookie.path;
+  const domain = document.cookie.domain;
+  document.cookie = `token=${token};path=${path};domain=${domain};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
   window.location.href = `http://localhost:3000/login/`;
 }
