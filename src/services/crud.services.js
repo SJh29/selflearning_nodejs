@@ -1,12 +1,12 @@
 const userData = require("../models/userModel");
 
-const findData = async (data) => {
+const findOneData = async (data) => {
   try {
     const { _id, username, email } = data;
     var found = {};
     if ((_id, username && email)) {
       found = await userData
-        .find({
+        .findOne({
           _id,
           email,
           username,
@@ -14,13 +14,13 @@ const findData = async (data) => {
         .exec();
     } else if (username) {
       found = await userData
-        .find({
+        .findOne({
           username,
         })
         .exec();
     } else if (email) {
       found = await userData
-        .find({
+        .findOne({
           email,
         })
         .exec();
@@ -105,8 +105,32 @@ const updateData = async (data) => {
   }
 };
 
+const findAllData = async () => {
+  //
+  try {
+    var found = await userData.find({}).lean();
+    forEachJson(found, ["password", "_id", "__v", "createdAt", "updatedAt"]);
+    return found;
+  } catch (err) {
+    console.error(err);
+    return 500;
+  }
+};
+function forEachJson(json, prop) {
+  json.forEach((obj) => {
+    trimJSON(obj, prop);
+  });
+}
+function trimJSON(json, propToRemove) {
+  //
+  propToRemove.forEach((element) => {
+    delete json[element];
+  });
+  return json;
+}
 module.exports = {
-  findData,
+  findOneData,
+  findAllData,
   createData,
   deleteData,
   updateData,

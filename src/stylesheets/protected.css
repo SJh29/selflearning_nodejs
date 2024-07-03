@@ -44,24 +44,36 @@ button {
 button:hover {
   background-color: #218838;
 }
-
+#loginBut {
+  width: 100%;
+}
 #welcomeMsg {
   border-radius: 10px;
   border-color: #28a745;
+  border: none;
   background-color: #f4f4f4;
   padding: 10px;
-  margin: 15px 0;
+  margin: 10px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-#h1dash {
-  border-radius: 10px;
-  border-color: #28a745;
+.table {
   background-color: #f4f4f4;
-  padding: 10px;
-  margin: 15px 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  width: 500px;
+  align-self: center;
+  overflow: hidden;
+  border-top: none;
+  border: none;
+  border-style: none;
+}
+#trHead {
+  background: #28a745;
+  color: white;
+  border-top: none;
+}
+.table > thead > tr > th {
+  border-top: none;
 }

@@ -7,7 +7,7 @@ async function getTokenUsername(token) {
   //console.log(jsonPayload);
   _id = jsonPayload.userId;
 
-  var data = await crudService.findData({ _id });
+  var data = await crudService.findOneData({ _id });
   return data.username;
 }
 module.exports = { getTokenUsername };

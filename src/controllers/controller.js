@@ -34,4 +34,8 @@ module.exports = {
     else if (found == null) res.status(400).end();
     else res.status(200).json("Success");
   },
+  findAll: async (req, res) => {
+    const found = await CRUDservices.findAllData();
+    res.status(200).json(found);
+  },
 };

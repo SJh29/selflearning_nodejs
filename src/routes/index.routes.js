@@ -13,5 +13,7 @@ router.use("/scripts", scriptRoute);
 router.use("/crud", crudRoutes);
 router.use("/", authRoutes);
 router.use("/protected", protectedRoute);
-
+router.use("/favicon.ico", (req, res) => {
+  res.sendFile("../favicon.ico");
+});
 module.exports = router;
