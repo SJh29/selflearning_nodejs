@@ -29,6 +29,7 @@ const findData = async (data) => {
         .findOne({
           _id,
         })
+        .lean()
         .exec();
     } else found = null;
     return found;

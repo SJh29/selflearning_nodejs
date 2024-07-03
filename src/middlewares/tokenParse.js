@@ -4,11 +4,10 @@ async function getTokenUsername(token) {
   jsonPayload = JSON.parse(
     Buffer.from(token.split(".")[1], "base64").toString()
   );
-  console.log(jsonPayload);
+  //console.log(jsonPayload);
   _id = jsonPayload.userId;
 
   var data = await crudService.findData({ _id });
-  console.log(data);
-  return data;
+  return data.username;
 }
 module.exports = { getTokenUsername };

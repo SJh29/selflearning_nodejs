@@ -3,13 +3,14 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Success
-    link(rel='stylesheet', type='text/css', href='/register.css')
+    title Dashboard
+    link(rel='stylesheet', type='text/css', href='/protected.css')
     script.
       async function redirectBut() {
         window.location.href = `http://localhost:3000/login/`;
       }
     body 
-      h1 Dashboard 
-      h2= data
-      button(onclick="event.preventDefault(); redirectBut();") Return to Login
+      h1(id="h1dash") Dashboard 
+      div(id="welcomeMsg")
+        h2="Welcome, "+username
+        button(onclick="event.preventDefault(); redirectBut();") Return to Login

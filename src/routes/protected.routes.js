@@ -6,8 +6,11 @@ const { getTokenUsername } = require("../middlewares/tokenParse");
 // Protected route
 router.get("/", verifyToken, async (req, res) => {
   const data = req.cookies.token;
-  var userdata = await getTokenUsername(data);
-  res.status(200).render("protected", userdata);
+  const userdata = await getTokenUsername(data);
+  const message = {
+    username: userdata,
+  };
+  res.status(200).render("protected", message);
 });
 
 module.exports = router;
