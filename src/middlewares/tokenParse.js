@@ -1,11 +1,10 @@
-const jwt = require("jsonwebtoken");
-const crudService = require("../services/crud.services");
+const crudService = require("../services/crudUser.services");
 async function getTokenUsername(token) {
   jsonPayload = JSON.parse(
     Buffer.from(token.split(".")[1], "base64").toString()
   );
   //console.log(jsonPayload);
-  _id = jsonPayload.userId;
+  const _id = jsonPayload.userId;
 
   var data = await crudService.findOneData({ _id });
   return data.username;

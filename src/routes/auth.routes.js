@@ -10,6 +10,16 @@ router.get("/register", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("login");
+  const data = {
+    message: "Login",
+  };
+  res.render("login", data);
 });
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  const data = {
+    message: "Logout Successful",
+  };
+  res.render("login", data);
+}); //controller.logoutUser);
 module.exports = router;

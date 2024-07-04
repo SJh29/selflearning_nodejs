@@ -10,4 +10,8 @@ module.exports = {
     const data = req.body;
     await authServices.userSignup(data, res);
   },
+  logoutUser: (req, res) => {
+    res.clearCookie("token");
+    res.render("login", { message: "Logout Successful" });
+  },
 };

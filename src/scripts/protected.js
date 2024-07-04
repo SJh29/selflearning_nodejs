@@ -9,21 +9,31 @@ function buildTable(data) {
   }
 }
 async function loadData() {
-  //
+  var token = "";
+  if (window.localStorage.getItem("token")) {
+    token = window.localStorage.getItem("token");
+  } else if (document.cookie.token) {
+    token = document.cookie.token;
+  }
+  console.log(token);
   const response = await fetch("/crud/findAll", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: document.cookie.token,
+      Authorization: `${token}`,
     },
   });
   const data = await response.json();
   buildTable(data);
 }
 async function logOut() {
-  const token = document.cookie.token;
-  const path = document.cookie.path;
-  const domain = document.cookie.domain;
-  document.cookie = `token=${token};path=${path};domain=${domain};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-  window.location.href = `http://localhost:3000/login/`;
+  const response = await fetch("/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    window.location.href = "/";
+  }
 }

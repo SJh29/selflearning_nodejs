@@ -1,7 +1,8 @@
-const CRUDservices = require("../services/crud.services");
+const CRUDUserService = require("../services/crudUser.services");
+const CRUDModelService = require("../services/crudProduct.services");
 module.exports = {
   createEntry: async (req, res) => {
-    const user = await CRUDservices.createData(req.body);
+    const user = await CRUDUserService.createData(req.body);
     if (user == 500) {
       res.status(500).json({ message: "Internal Server Error" });
     } else {
@@ -9,7 +10,7 @@ module.exports = {
     }
   },
   deleteEntry: async (req, res) => {
-    const result = await CRUDservices.deleteData(req.body);
+    const result = await CRUDUserService.deleteData(req.body);
     if (result == 500) {
       res.status(500).json({ message: "Internal Server Error" });
     } else if (result == null) {
@@ -19,7 +20,7 @@ module.exports = {
     }
   },
   updateEntry: async (req, res) => {
-    const updated = await CRUDservices.updateData(req.body);
+    const updated = await CRUDUserService.updateData(req.body);
     if (updated == 500) {
       res.status(500).json({ message: "internal server error" });
     } else if (updated == null) {
@@ -29,13 +30,13 @@ module.exports = {
     }
   },
   findEntry: async (req, res) => {
-    const found = await CRUDservices.findData(req.body);
+    const found = await CRUDUserService.findData(req.body);
     if (found == 500) res.status(500).end();
     else if (found == null) res.status(400).end();
     else res.status(200).json("Success");
   },
   findAll: async (req, res) => {
-    const found = await CRUDservices.findAllData();
+    const found = await CRUDUserService.findAllData();
     res.status(200).json(found);
   },
 };

@@ -42,5 +42,5 @@ async function userLogin(username, password, res) {
     return null;
   }
 }
-async function userLogOut() {}
+
 module.exports = { userLogin, userSignup };

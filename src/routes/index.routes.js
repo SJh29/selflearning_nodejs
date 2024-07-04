@@ -7,7 +7,7 @@ const scriptRoute = require("./scripts.routes");
 const path = require("path");
 //const appAllroutes = () => {
 router.get("/", (req, res) => {
-  res.redirect("/register");
+  res.redirect("/login");
 });
 router.use("/scripts", scriptRoute);
 router.use("/crud", crudRoutes);

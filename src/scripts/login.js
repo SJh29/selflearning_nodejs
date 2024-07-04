@@ -1,7 +1,7 @@
 async function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-
+  const token = window.localStorage.getItem("token");
   const response = await fetch("/login", {
     method: "POST",
     headers: {
@@ -14,7 +14,7 @@ async function login() {
   if (!result.error) {
     //document.getElementById("success").style.display = "block";
     document.cookie = `token=${result.token}; path=/`;
-    console.log(document.cookie);
+    //window.localStorage.setItem("token", result.token);
     showToast("<p style='text-align:center'>Login Successful</p>");
   } else {
     showToast("<p style='text-align: center'>Login Failed</p>");
@@ -22,7 +22,7 @@ async function login() {
 }
 
 async function redirectBut() {
-  window.location.href = `http://localhost:3000/protected/`;
+  window.location.href = `http://localhost:3000/protected`;
 }
 
 function showToast(msg) {
