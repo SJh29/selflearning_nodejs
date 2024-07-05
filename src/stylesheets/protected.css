@@ -3,9 +3,9 @@ body {
   font-weight: 400;
   font-size: 20px;
   display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: baseline;
   height: 100vh;
   margin-left: 30px;
   margin-top: 50px;
@@ -33,19 +33,20 @@ input {
 }
 button {
   padding: 10px;
+  margin: 5px;
   font-size: 16px;
   background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  align-self: flex-start;
+  align-self: stretch;
 }
 button:hover {
   background-color: #218838;
 }
-#loginBut {
-  width: 100%;
+#sidebar {
+  flex-direction: column;
 }
 #welcomeMsg {
   border-radius: 10px;
@@ -57,23 +58,87 @@ button:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+}
+#actions {
+  border-radius: 10px;
+  border-color: #28a745;
+  border: none;
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
   align-items: center;
+}
+#toast-box {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.toast {
+  width: 200px;
+  height: 40px;
+  background: #fff;
+  font-weight: 500;
+  margin: 15px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  border: none;
+  position: relative;
+  transform: translateX(100%);
+  animation: moveleft 0.2s linear forwards;
+}
+@keyframes moveleft {
+  100% {
+    transform: translateX(0);
+  }
+}
+.toast::after {
+  content: "";
+  border-radius: 8px;
+  border: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background: #28a745;
+  animation: anim 5s linear forwards;
+}
+
+@keyframes anim {
+  100% {
+    width: 0;
+  }
 }
 .table {
   background-color: #f4f4f4;
-  border-radius: 10px;
+  border-radius: 0px;
   width: 500px;
+
   align-self: center;
   overflow: hidden;
-  border-top: none;
-  border: none;
-  border-style: none;
+  border: #218838;
+  border-style: solid;
 }
-#trHead {
+#trHead1 {
   background: #28a745;
   color: white;
-  border-top: none;
 }
-.table > thead > tr > th {
+.table > thead > tr > th,
+.table > thead > tr > td {
   border-top: none;
 }

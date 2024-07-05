@@ -13,7 +13,7 @@ router.get("/login", (req, res) => {
   const data = {
     message: "Login",
   };
-  res.render("login", data);
+  res.render("login", { data });
 });
 router.post("/logout", (req, res) => {
   res.clearCookie("token");
