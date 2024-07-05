@@ -10,7 +10,7 @@ router.get("/", verifyToken, async (req, res) => {
   const message = {
     username: userdata,
   };
-  res.status(200).render("protected", message);
+  res.status(200).render("protected", { message });
 });
 
 module.exports = router;

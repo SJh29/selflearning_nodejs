@@ -2,36 +2,13 @@ const productModel = require("../models/productModel");
 
 const findOneData = async (data) => {
   try {
-    const { _id, username, email } = data;
-    var found = {};
-    if ((_id, username && email)) {
-      found = await userData
-        .findOne({
-          _id,
-          email,
-          username,
-        })
-        .exec();
-    } else if (username) {
-      found = await userData
-        .findOne({
-          username,
-        })
-        .exec();
-    } else if (email) {
-      found = await userData
-        .findOne({
-          email,
-        })
-        .exec();
-    } else if (_id) {
-      found = await userData
-        .findOne({
-          _id,
-        })
-        .lean()
-        .exec();
-    } else found = null;
+    const { name } = data;
+    const found = await productModel
+      .findOne({
+        name,
+      })
+      .lean()
+      .exec();
     return found;
   } catch (err) {
     console.error(err);
@@ -41,14 +18,13 @@ const findOneData = async (data) => {
 
 const createData = async (data) => {
   try {
-    const { username, email, password } = data;
-    const user = new userData({
-      username,
-      email,
-      password,
+    const { name, number } = data;
+    const product = new productModel({
+      name,
+      number,
     });
-    await user.save();
-    return user;
+    await product.save();
+    return product;
   } catch (err) {
     console.log(err);
     return 500;
@@ -57,9 +33,9 @@ const createData = async (data) => {
 
 const deleteData = async (data) => {
   try {
-    const { username, email, password } = data;
-    const user = { username, email, password };
-    const result = await userData.findOneAndDelete(user).exec();
+    const { name, number } = data;
+    const prod = { name, number };
+    const result = await productModel.findOneAndDelete(prod).lean().exec();
     return result;
   } catch (err) {
     console.error(err);
@@ -69,35 +45,36 @@ const deleteData = async (data) => {
 
 const updateData = async (data) => {
   try {
-    const { username, email, password, newUsername, newPassword } = data;
+    const { name, number, newName, newNumber } = data;
     var nName = false;
-    var nPass = false;
+    var nNum = false;
     if (newUsername) nName = true;
-    if (newUsername) nPass = true;
+    if (newNumber) nNum = true;
     const filter = {
-      username,
-      email,
-      password,
+      name,
+      number,
     };
     // constructor for newdata
     var newData = {};
-    if (nName && nPass) {
+    if (nName && nNum) {
       newData = {
-        username: newUsername,
-        password: newPassword,
+        name: newName,
+        number: newNumber,
       };
     } else if (nName) {
       newData = {
-        username: newUsername,
+        name: newName,
       };
-    } else if (nPass) {
+    } else if (nNum) {
       newData = {
-        password: newPassword,
+        number: newNumber,
       };
     }
-    const updated = await userData.findOneAndUpdate(filter, newData, {
-      new: true,
-    });
+    const updated = await productModel
+      .findOneAndUpdate(filter, newData, {
+        new: true,
+      })
+      .lean();
     return updated;
   } catch (err) {
     console.error(err);
@@ -108,8 +85,8 @@ const updateData = async (data) => {
 const findAllData = async () => {
   //
   try {
-    var found = await userData.find({}).lean();
-    forEachJson(found, ["password", "_id", "__v", "createdAt", "updatedAt"]);
+    var found = await productModel.find({}).lean();
+    forEachJson(found, ["_id", "__v"]);
     return found;
   } catch (err) {
     console.error(err);

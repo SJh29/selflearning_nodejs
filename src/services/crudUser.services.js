@@ -109,7 +109,7 @@ const findAllData = async () => {
   //
   try {
     var found = await userData.find({}).lean();
-    forEachJson(found, ["password", "_id", "__v", "createdAt", "updatedAt"]);
+    forEachJson(found, ["password", "_id", "__v"]);
     return found;
   } catch (err) {
     console.error(err);

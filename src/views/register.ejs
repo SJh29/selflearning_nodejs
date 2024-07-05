@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="/register.css" />
+    <script
+      type="text/javascript"
+      language="javascript"
+      src="../scripts/register.js"
+    ></script>
+  </head>
+
+  <body>
+    <h1>Register</h1>
+    <br />
+    <form id="register-form" onsubmit="event.preventDefault(); register();">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <label for="confirmPassword">Confirm Password:</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+      <button type="submit">Register</button><br /><br />
+
+      <div id="toast-box"></div>
+    </form>
+    <button id="login">Login</button>
+    <script>
+      document
+        .getElementById("login")
+        .addEventListener("click", async function () {
+          window.location.href = "/login";
+        });
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", async function (event) {
+          const username = document.getElementById("username").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+          }
+
+          const response = await fetch("/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, email, password }),
+          });
+
+          const result = await response.json();
+          showToast(result.message);
+        });
+      function showToast(msg) {
+        let toastbox = document.getElementById("toast-box");
+        let toast = document.createElement("div");
+
+        toast.classList.add("toast");
+        toast.innerHTML = msg;
+        toastbox.appendChild(toast);
+        setTimeout(() => {
+          toast.remove();
+        }, 6000);
+      }
+    </script>
+  </body>
+</html>

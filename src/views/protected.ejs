@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/protected.css" />
+
+    <body onload="loadData();">
+      <div id="welcomeMsg">
+        <h1>Dashboard</h1>
+        <h2>Welcome, <%=message.username %></h2>
+        <button onclick="event.preventDefault(); logOut();" id="logout">
+          Log Out
+        </button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr id="trHead">
+            <th>Product Name</th>
+            <th>Product Inventory</th>
+          </tr>
+        </thead>
+        <tbody id="myTable"></tbody>
+      </table>
+      <script>
+        // load table on load
+        async function loadData() {
+          var token = "";
+          if (window.localStorage.getItem("token")) {
+            token = window.localStorage.getItem("token");
+          } else if (document.cookie.token) {
+            token = document.cookie.token;
+          }
+          const response = await fetch("/crud/product/findAll", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `${token}`,
+            },
+          });
+          const data = await response.json();
+          buildTable(data);
+        }
+
+        document
+          .getElementById("logout")
+          .addEventListener("click", async function (event) {
+            event.preventDefault();
+            const response = await fetch("/logout", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            if (response.ok) {
+              window.location.href = "/";
+            }
+          });
+
+        async function buildTable(data) {
+          var table = document.getElementById("myTable");
+          for (var i = 0; i < data.length; i++) {
+            var row = `<tr>
+                                <td>${data[i].name}</td>
+                                <td>${data[i].number}</td>
+                        </tr>`;
+            table.innerHTML += row;
+          }
+        }
+      </script>
+    </body>
+  </head>
+</html>

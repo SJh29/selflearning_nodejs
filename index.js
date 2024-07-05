@@ -10,12 +10,11 @@ const port = process.env.PORT || 3000;
 
 // viewengine
 // Set Pug as the view engine
-app.set("view engine", "pug");
+app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/src/views"));
 
 // set stylesheets & scripts for pages
 app.use(express.static(path.join(__dirname + "/src/stylesheets")));
-app.use(express.static("./src/scripts"));
 // parse json and encoded url
 app.use(express.json());
 app.use(cookieParse());

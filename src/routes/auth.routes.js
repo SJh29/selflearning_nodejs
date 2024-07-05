@@ -20,6 +20,6 @@ router.post("/logout", (req, res) => {
   const data = {
     message: "Logout Successful",
   };
-  res.render("login", data);
+  res.render("login", { data });
 }); //controller.logoutUser);
 module.exports = router;
