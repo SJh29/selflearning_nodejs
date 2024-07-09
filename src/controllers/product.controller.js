@@ -4,6 +4,8 @@ module.exports = {
     const product = await CRUDModelService.createData(req.body);
     if (product == 500) {
       res.status(500).json({ message: "Internal Server Error" });
+    } else if (product.error) {
+      res.status(400).json({ error: product.error });
     } else {
       res.status(200).json("Success");
     }

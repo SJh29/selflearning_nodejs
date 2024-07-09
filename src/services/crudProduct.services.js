@@ -23,6 +23,14 @@ const createData = async (data) => {
       name,
       number,
     });
+    // handle already added errors
+    const found = await productModel
+      .findOne({
+        name,
+      })
+      .lean()
+      .exec();
+    if (found != null) return { error: "entry already exists" };
     await product.save();
     return product;
   } catch (err) {
@@ -34,7 +42,16 @@ const createData = async (data) => {
 const deleteData = async (data) => {
   try {
     const { name, number } = data;
-    const prod = { name, number };
+    var prod = {};
+    if (name && number) {
+      prod = { name, number };
+    } else if (name) {
+      prod = { name };
+    } else if (number) {
+      prod = { number };
+    } else {
+      return 400;
+    }
     const result = await productModel.findOneAndDelete(prod).lean().exec();
     return result;
   } catch (err) {

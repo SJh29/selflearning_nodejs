@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const protectedRoute = require("./protected.routes");
+const dashboardRoute = require("./dashboard.routes");
 const authRoutes = require("./auth.routes");
 const crudRoutes = require("./crud.routes");
 const path = require("path");
@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 router.use("/crud", crudRoutes);
 router.use("/", authRoutes);
-router.use("/dashboard", protectedRoute);
+router.use("/dashboard", dashboardRoute);
 router.use("/favicon.ico", (req, res) => {
   res.sendFile(path.join(__dirname, "../favicon.ico"));
 });
