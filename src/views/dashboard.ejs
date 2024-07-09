@@ -117,8 +117,7 @@
           data-bs-autohide="false"
         >
           <div class="toast-header" style="align-items: flex-end">
-            <strong class="me-auto">Alert</strong>
-            <small></small>
+            Notification
             <button
               type="button"
               class="close-btn btn-close"
@@ -228,14 +227,14 @@
           table.innerHTML = "";
           for (let i = 0; i < data.length; i++) {
             let row = `<tr>
-                                <th><input
-                                      type="checkbox"
-                                      class="check-input"
-                                      name="select"
-                                /></th>
-                                <td>${data[i].name}</td>
-                                <td>${data[i].number}</td>
-                        </tr>`;
+                                    <th><input
+                                          type="checkbox"
+                                          class="check-input"
+                                          name="select"
+                                    /></th>
+                                    <td>${data[i].name}</td>
+                                    <td>${data[i].number}</td>
+                            </tr>`;
             table.innerHTML += row;
           }
         }
@@ -312,13 +311,12 @@
             }
           });
 
-        const toastLiveExample = document.getElementById("liveToast");
-        const toastBootstrap =
-          bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-        function showToast(msg) {
-          toastbody = document.getElementById("toastbody");
-          toastbody.innerHTML = msg;
-          toastBootstrap.show();
+        function showToast(message) {
+          const toastElement = document.getElementById("liveToast");
+          const toastBody = document.getElementById("toastbody");
+          toastBody.textContent = message;
+          const toast = new bootstrap.Toast(toastElement);
+          toast.show();
         }
       </script>
     </body>
