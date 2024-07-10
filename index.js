@@ -4,9 +4,13 @@ const express = require("express");
 const path = require("path");
 const cookieParse = require("cookie-parser");
 require("dotenv").config({ path: "./src/.env" });
+const morgan = require("morgan");
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// logger
+app.use(morgan("dev"));
 
 // viewengine
 // Set Pug as the view engine
