@@ -94,3 +94,7 @@ input {
   cursor: pointer;
   align-self: stretch;
 }
+
+div {
+  display: grid;
+}

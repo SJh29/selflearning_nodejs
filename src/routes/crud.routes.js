@@ -4,12 +4,12 @@ const router = express.Router();
 const userController = require("../controllers/user.controller");
 const productController = require("../controllers/product.controller");
 const verifyToken = require("../middlewares/auth.middleware");
-
-router.post("/user/addDoc", verifyToken, userController.createEntry);
-router.post("/user/updDoc", verifyToken, userController.updateEntry);
+// ! Need to create a new middleware for user crud operations
+// router.post("/user/addDoc", verifyToken, userController.createEntry);
+// router.post("/user/updDoc", verifyToken, userController.updateEntry);
 router.post("/user/getDoc", verifyToken, userController.findEntry);
-router.post("/user/delDoc", verifyToken, userController.deleteEntry);
-router.post("/user/findAll", verifyToken, userController.findAll);
+// router.post("/user/delDoc", verifyToken, userController.deleteEntry);
+// router.post("/user/findAll", verifyToken, userController.findAll);
 // product routes
 router.post("/product/addDoc", verifyToken, productController.createEntry);
 router.post("/product/updDoc", verifyToken, productController.updateEntry);
