@@ -8,13 +8,21 @@ function verifyToken(req, res, next) {
   } else if (req.header("Authorization")) {
     token = req.header("Authorization");
   }
-  if (!token) return res.status(401).json({ error: "Access denied" });
+  if (!token) {
+    const data = {
+      message: "Access Denied",
+    };
+    return res.status(401).render("unauthorized", { data });
+  }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req._id = decoded._id;
     next();
   } catch (error) {
-    res.status(401).json({ error: "Invalid token" });
+    const data = {
+      message: "Invalid Credentials",
+    };
+    res.status(401).render("unauthorized", { data });
   }
 }
 

@@ -222,6 +222,7 @@
           const data = await response.json();
           buildTable(data);
         }
+
         async function buildTable(data) {
           let table = document.getElementById("item-body");
           table.innerHTML = "";
