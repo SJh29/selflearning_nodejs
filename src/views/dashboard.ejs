@@ -10,7 +10,10 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="dashboard.css" />
 
     <body onload="loadData();">
@@ -28,7 +31,7 @@
             Log Out
           </button>
         </div>
-        <div id="actions">
+        <div id="actions" class="form-check">
           <button
             type="button"
             class="btn btn-info"
@@ -40,14 +43,18 @@
           <button type="button" class="btn btn-info" id="del-itembtn">
             Delete Product
           </button>
-          <label id="mCheck-label" for="main-check" style="display: none"
-            >Select All</label
-          >
+          <label
+            class="form-check-label"
+            id="mCheck-label"
+            for="main-check"
+            style="display: none; align-self: center"
+            >Select All
+          </label>
           <input
             id="main-check"
             type="checkbox"
-            class="check-input"
-            style="display: none"
+            class="form-check-input"
+            style="display: none; align-self: center"
           />
         </div>
       </div>
@@ -59,12 +66,25 @@
       >
         <thead class="table-dark">
           <tr>
-            <th></th>
+            <th scoppe="col" data-checkbox="true"></th>
             <th scope="col">Product Name</th>
             <th scope="col">Product Inventory</th>
           </tr>
         </thead>
         <tbody id="item-body"></tbody>
+        <tfoot class="" id="item-footer">
+          <tr>
+            <th class="text-center" colspan="3" style="justify-content: center">
+              <button type="button" id="item-prev" class="btn btn-info">
+                <i class="bi bi-arrow-left"></i>
+              </button>
+              Page: 1
+              <button type="button" id="item-next" class="btn btn-info">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </th>
+          </tr>
+        </tfoot>
       </table>
       <!--Modal for Logout-->
       <div
@@ -175,17 +195,23 @@
             let delBut = document.getElementById("del-itembtn");
             // Add a button, Select All check, and label for checkbox
             let confDelete = document.createElement("button");
-            let mainCheck = document.getElementById("main-check");
+            //let mainCheck = document.getElementById("main-check");
             let checkLabel = document.getElementById("mCheck-label");
             // make checkbox and label visible
-            mainCheck.style.removeProperty("display");
+            //mainCheck.style.removeProperty("display");
+            var ele = document.getElementsByClassName("form-check-input");
+            for (var i = 0; i < ele.length; i++) {
+              ele[i].style.removeProperty("display");
+            }
             checkLabel.style.removeProperty("display");
             delBut.style.display = "none";
             // add appropriate attributes for button
             confDelete.setAttribute("class", "btn btn-danger");
             confDelete.setAttribute("id", "conf-del");
+            // show checkboxes
+
             confDelete.onclick = async function () {
-              //
+              //get selected rows
               let rows = getSelected();
               let delBut = document.getElementById("del-itembtn");
               // Add a button, Select All check, and label for checkbox
@@ -255,6 +281,7 @@
           const data = await response.json();
           buildTable(data);
         }
+
         async function buildTable(data) {
           let table = document.getElementById("item-body");
           table.innerHTML = "";
@@ -262,8 +289,9 @@
             let row = `<tr>
                                     <th><input
                                           type="checkbox"
-                                          class="check-input"
-                                          name="select"
+                                          class="form-check-input"
+                                          id="check-${i}"
+                                          style="display: none"
                                     /></th>
                                     <td>${data[i].name}</td>
                                     <td>${data[i].number}</td>
