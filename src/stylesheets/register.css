@@ -37,8 +37,6 @@ input {
   border-radius: 4px;
 }
 #toast-box {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 400;
   top: 5px;
   align-self: center;
   position: absolute;
