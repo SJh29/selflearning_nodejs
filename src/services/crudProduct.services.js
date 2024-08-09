@@ -2,14 +2,24 @@ const productModel = require("../models/productModel");
 
 const findOneData = async (data) => {
   try {
-    const { name } = data;
+    const { name, page, perPage } = data;
+    let docCount = 0;
     const found = await productModel
       .findOne({
         name,
       })
+      .limit(perPage)
+      .skip(perPage * page)
       .lean()
-      .exec();
-    return found;
+      .exec(
+        Event.countDocuments((err, count) => {
+          //
+          if (err) throw new Error(err);
+          docCount = count;
+        })
+      );
+    pageTot = docCount / perPage;
+    return { found, pageTot }; //tot Pages = docCount/perPage
   } catch (err) {
     console.error(err);
     return 500;
@@ -102,9 +112,20 @@ const updateData = async (data) => {
 const findAllData = async () => {
   //
   try {
-    var found = await productModel.find({}).lean();
+    var found = await productModel
+      .find({})
+      .limit(perPage)
+      .skip(perPage * page)
+      .lean()
+      .exec(
+        Event.countDocuments((err, count) => {
+          //
+          if (err) throw new Error(err);
+          docCount = count / perPage;
+        })
+      );
     forEachJson(found, ["_id", "__v"]);
-    return found;
+    return { found, docCount };
   } catch (err) {
     console.error(err);
     return 500;

@@ -1,7 +1,7 @@
-const CRUDModelService = require("../services/crudProduct.services");
+const productService = require("../services/crudProduct.services");
 module.exports = {
   createEntry: async (req, res) => {
-    const product = await CRUDModelService.createData(req.body);
+    const product = await productService.createData(req.body);
     if (product == 500) {
       res.status(500).json({ message: "Internal Server Error" });
     } else if (product.error) {
@@ -11,7 +11,7 @@ module.exports = {
     }
   },
   deleteEntry: async (req, res) => {
-    const result = await CRUDModelService.deleteData(req.body);
+    const result = await productService.deleteData(req.body);
     if (result == 500) {
       res.status(500).json({ message: "Internal Server Error" });
     } else if (result == null) {
@@ -21,7 +21,7 @@ module.exports = {
     }
   },
   updateEntry: async (req, res) => {
-    const updated = await CRUDModelService.updateData(req.body);
+    const updated = await productService.updateData(req.body);
     if (updated == 500) {
       res.status(500).json({ message: "internal server error" });
     } else if (updated == null) {
@@ -31,13 +31,13 @@ module.exports = {
     }
   },
   findEntry: async (req, res) => {
-    const found = await CRUDModelService.findData(req.body);
+    const found = await productService.findData(req.body);
     if (found == 500) res.status(500).end();
     else if (found == null) res.status(400).end();
     else res.status(200).json("Success");
   },
   findAll: async (req, res) => {
-    const found = await CRUDModelService.findAllData();
+    const found = await productService.findAllData();
     res.status(200).json(found);
   },
 };
